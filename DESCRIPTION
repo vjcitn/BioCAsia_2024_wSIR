@@ -1,4 +1,4 @@
-Package:BioCAsia_2024_wSIR
+Package:BioCAsia2024wSIR
 Title: wSIR: Weighted Sliced Inverse Regression for supervised dimension reduction of spatial transcriptomics and single cell gene expression data
 Version: 2.0.1
 Authors@R: c(
