@@ -1,52 +1,31 @@
-# BuildABiocWorkshop
+## Overview
 
-This package is a template for building a Bioconductor workshop. The package
-includes Github actions to:
+Single-cell and spatial gene expression data are very high-dimensional, which makes dimension reduction a crucial step in the analysis pipeline. However, many popular examples of dimension reduction methods, such as Principal Component Analysis (PCA), ignore the purpose of a dimension reduction procedure, which is to assist in a specific downstream analysis. wSIR is a supervised dimension reduction method, which makes use of cells' spatial locations to compute a spatially-informed low-dimensional embedding.
 
-1. Set up bioconductor/bioconductor_docker:devel on Github resources
-2. Install package dependencies for your package (based on the `DESCRIPTION` file)
-3. Run `rcmdcheck::rcmdcheck`
-4. Build a pkgdown website and push it to github pages
-5. Build a docker image with the installed package and dependencies and deploy to [the Github Container Repository](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#pulling-container-images) at the name `ghcr.io/gihub_user/repo_name`, all lowercase. 
+## Description
 
-## Responsibilities
+In this workshop, we will introduce the wSIR method for supervised dimension reduction of spatial transcriptomics and single-cell gene expression data. We will explain the method, and go through some example analyses to demonstrate how the method is applied. We will also perform some simple analyses to demonstrate its utility. 
 
-Package authors are primarily responsible for:
+### Pre-requisites
 
-1. Creating a landing site of their choosing for their workshops (a website). This website should be listed in the `DESCRIPTION` file as the `URL`.
-2. Creating a docker image that will contain workshop materials and the installed packages necessary to run those materials. The name of the resulting docker image, including "tag" if desired, should be listed in a non-standard tag, `DockerImage:` in the `DESCRIPTION` file. 
+It is expected that students will have:
 
-Both of those tasks can be accomplished using the Github actions included in this template package. The vignette accompanying this package describes how to accomplish both of these tasks.
+- basic knowledge of R syntax, and
+- familiarity with single-cell and spatial transcriptomics data.
 
-## Details
+### Time outline
 
-For detailed instructions, see the `How to build a workshop` article/vignette.
+The expected timing of the workshop:
 
-## Results of successful deployment
+| Activity                                      | Time |
+|-----------------------------------------------|------|
+| wSIR method overview                          | 20m  |
+| wSIR application: interpretability            | 15m  |
+| wSIR application: improved modelling accuracy | 15m  |
 
-- A working docker image that contains the installed package and dependencies.
-- An up-to-date `pkgdown` website at https://YOURUSERNAME.github.io/YOURREPOSITORYNAME/
-- Docker image will be tagged with `latest`, `sha-XXXXXX` where `XXXXXX` is the hash of the current `master` commit, and `master`. 
+### Learning objectives
 
-## To use the resulting image:
-
-```sh
-docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 YOURDOCKERIMAGENAME
-```
-Once running, navigate to http://localhost:8787/ and then login with `rstudio`:`yourchosenpassword`. 
-
-To try with **this** repository docker image:
-
-```sh
-docker run -e PASSWORD=abc -p 8787:8787 ghcr.io/bioconductor/buildabiocworkshop
-```
-
-*NOTE*: Running docker that uses the password in plain text like above exposes the password to others 
-in a multi-user system (like a shared workstation or compute node). In practice, consider using an environment 
-variable instead of plain text to pass along passwords and other secrets in docker command lines. 
-
-
-## Whatcha get
-
-- https://bioconductor.github.io/BuildABiocWorkshop
-- A Docker image that you can run locally, in the cloud, or (usually) even as a singularity container on HPC systems. 
+- Understand the wSIR method.
+- Use wSIR to project new single-cell gene expression data into a spatially-informed low-dimensional space.
+- Examine the wSIR loadings to derive biological insight
+- Use wSIR to improve accuracy in downstream analysis
