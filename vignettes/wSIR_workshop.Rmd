@@ -90,19 +90,21 @@ The expected timing of the workshop:
 ### Load packages
 
 ```{r}
-library(wSIRBioCAsia2024)
+library(BioCAsia2024wSIR)  # use the same name, no underscores, as in DESCRIPTION
 library(ggplot2)
 library(vctrs)
 library(wSIR)
 library(magrittr)
+library(dplyr) # for arrange
 ```
 
-### Download data
+### Acquire data
 
 We will use spatial transcriptomics data for mouse embryos from https://www.nature.com/articles/s41587-021-01006-2 . We will examine how we can apply the wSIR functions to study this data. This dataset will illustrate how you can apply the package functions to your own data. 
 
 ```{r}
-data(embryos_data_red)
+#data(embryos_data_red)  # you don't have a data folder
+load(system.file("extdata", "embryos_data_red.RData", package="BioCAsia2024wSIR"))
 
 ## files this downloads:
 # exprs1
@@ -289,7 +291,7 @@ We recommend you don't adjust `nrep` or `varThreshold`, as this can make it take
 ```{r}
 subsetted = 0.2 # Change this to specify the proportion of the data you want to use for this exploration
 rsample <- sample(c(TRUE, FALSE), size = n3, replace = TRUE, prob = c(subsetted, 1-subsetted))
-
+# FIXME
 EWP_object <- exploreWSIRParams(exprs = exprs3[rsample,],
                                 coords = coords3[rsample,],
                                 nrep = 3, # This function computes a random train/test split of the data nrep times
@@ -447,7 +449,8 @@ Note that for this workshop, we will not actually compute the Tangram predicted 
 Below loads in 7 matrices, all of dimension n1 by 2, containing the predicted coordinates using as inputs: PCA, PLS, SIR, wSIR, LDA, counts and logcounts. The file names are of the form `pred_pca_em1`, in that case for the predicted coordinates of embryo 1 using the PCA low-dimensional embedding as the Tangram input. We also include the predicted coordinates using just counts or LogCounts as the inputs (without any dimension reduction applied) as those are the default inputs for Tangram.
 
 ```{r}
-data(em1_tangram_preds_red) # This loads a list (not vector) of predicted coordinates into your environment, named pred_em1_tangram_red
+#data(em1_tangram_preds_red) # This loads a list (not vector) of predicted coordinates into your environment, named pred_em1_tangram_red
+load(system.file("extdata", "em1_tangram_preds_red.RData", package="BioCAsia2024wSIR"))
 ```
 
 To evaluate, we will compute the distance correlation between the predicted and the actual coordinates, for the predicted coordinates from all dimension reduction methods. This is not part of the wSIR package, but should demonstrate the effectiveness of using wSIR as a dimension reduction tool to improve downstream analysis.
