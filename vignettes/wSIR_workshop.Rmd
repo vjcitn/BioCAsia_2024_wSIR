@@ -312,12 +312,12 @@ Using the wSIR algorithm itself is quite straightforward. For users, there is a 
 
 ```{r}
 # wSIR with default parameter values
-wsir_object <- wSIR::wSIR(exprs = exprs3, 
+wsir_object <- wSIR::wSIR(X = exprs3, 
                           coords = coords3)
 
 # wSIR selecting to optimise over a range of parameters using exploreWSIRParams
 ## Not recommended in practice since wSIR performance is mostly consistent when you select reasonable values for slices and alpha
-wsir_object <- wSIR::wSIR(exprs = exprs3, 
+wsir_object <- wSIR::wSIR(X = exprs3, 
                           coords = coords3,
                           optim_params = TRUE,
                           nrep = 3,
@@ -326,7 +326,7 @@ wsir_object <- wSIR::wSIR(exprs = exprs3,
                           varThreshold = 0.95)
 
 # wSIR specifying some parameter values
-wsir_obj <- wSIR::wSIR(exprs = exprs3, 
+wsir_obj <- wSIR::wSIR(X = exprs3, 
                        coords = coords3,
                        alpha = 5,
                        slices = 10,
@@ -483,8 +483,23 @@ ggplot(tangram_distcor_df, aes(x = tangram_input, y = distcor)) +
   ggtitle("Distance correlation between predicted and actual coordinates")
 ```
 
+### wSIR application: multiple samples
 
+In the previous section, we used the gene expression data and the spatial coordinates of one spatial sample to project the gene expression data of a different sample into low-dimensional space. However, we may often have access to multiple spatial samples. wSIR is able to incorporate multiple such samples, by setting the weight matrix value for two tiles from different spatial samples to be 0. The code to use, for example, the gene expression and spatial coordinates for embryos 2 and 3 to project the gene expression data of embryo 1 into low-dimensional space is below.
 
+```{r}
+wsir_obj_2_3 <- wSIR::wSIR(X = rbind(exprs2, exprs3),
+                           coords = rbind(coords2, coords3),
+                           samples = c(rep(2, n2), rep(3, n3)), # specify samples
+                           alpha = 4,
+                           slices = 10,
+                           varThreshold = 0.95)
+
+proj1_from23 <- projectWSIR(wsir = wsir_obj_2_3, newdata = exprs1)
+dim(proj1_from23) # gene expression data from sample 1 projected into low-dimensional space
+```
+
+We will not explore it here, but our results (manuscript on the way!) show that wSIR performance improves when you incorporate multiple spatial samples. Therefore, if you are in a situation where you do have multiple spatial samples, it is best to use wSIR and account for the multiple samples as above. 
 
 
 
