@@ -155,7 +155,7 @@ they come from opposite sides of the tissue). wSIR uses a weight matrix to
 incorporate the spatial correlation between all pairs of cells in the SIR 
 algorithm. This matrix has dimension H*H, where H is the number of tiles, 
 and the (i,j)th entry represents the distance between tiles i and j. This 
-matrix is incorporated into the eigendeomposition step. The wSIR output has the 
+matrix is incorporated into the eigendecomposition step. The wSIR output has the 
 same structure as the SIR output. 
 
 ## Method demonstration
@@ -335,7 +335,7 @@ wsir_obj <- wSIR::wSIR(X = exprs3,
 
 ## wSIR application: interpretability
 
-The wSIR package includes some functions to give an insight into what biological information the method is using. These functions are firstly for interpretability, so you can understand which genes are the most important for the low-dimensional space. Secondly, these functions couldd be used to give more biological understanding, as you can find how genes impact and are impacted by the spatially-aware low-dimensional embedding. 
+The wSIR package includes some functions to give an insight into what biological information the method is using. These functions are firstly for interpretability, so you can understand which genes are the most important for the low-dimensional space. Secondly, these functions could be used to give more biological understanding, as you can find how genes impact and are impacted by the spatially-aware low-dimensional embedding. 
 
 ### wSIR Top Genes
 
@@ -434,7 +434,7 @@ exprs1_projected <- projectWSIR(wsir = wsir_obj, newdata = exprs1)
 dim(exprs1_projected)
 ```
 
-From just that line, you can now apply downstream analysis to this low-dimensional embedding of embryo 1's gene exprssion data.
+From just that line, you can now apply downstream analysis to this low-dimensional embedding of embryo 1's gene expression data.
 
 Here, we will show how this method can be applied to Tangram, a popular deep-learning-based spatial alignment method. Tangram is available here: https://www.nature.com/articles/s41592-021-01264-7 .
 
